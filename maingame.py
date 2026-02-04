@@ -2,36 +2,55 @@
 import pygame
 import time
 import random
+
 pygame.init()
 from pygame.locals import QUIT, KEYDOWN, K_ESCAPE
 pygame.font.init()
 pygame.display.init()
-#how to add music (this is a stretch goal but the code is rlly easy)
-# pygame.mixer.pre_init(frequency=44100, size=-16, channels=2, buffer=512)
-# pygame.init()
-# pygame.mixer.init(44100, -16, 2, 512)
-# from pygame import mixer
-#how to play file
-# pygame.mixer.music.load(random.choice(mp3 file))
-# pygame.mixer.music.play(-1)
-# pygame.mixer.music.set_volume(1.0)
-
-
+velocity=0
 #Setting up display
 screen = pygame.display.set_mode((1000, 800))
-pygame.display.set_caption("Tennis Battle Royale")
-screen.fill((0,255, 0))
+pygame.display.set_caption("Table Tennis")
+screen.fill((0,0,0))
+acceleration=100
+velocity+=acceleration
+opponentscore=0
+playerscore=0
+velocity+=acceleration
+position=+velocity
+#trying to make simple figures for our tennis court
+#A blank canvas which I guess you need to make the imahge on
+sprite_surface = pygame.surface((100,100), pygame.SRCALPHA)
+#how you draw a rectangle
+player=pygame.draw.circle(sprite_surface, (50,0,0),(25),50)
+opponent=pygame.draw.circle(sprite_surface, (-50,0,0),(25),50)
+#how to draw a circle
+circle=pygame.draw.circle(sprite_surface, (50,0,0), (25), 25)
+circle.x=0
+circle.y=0
+circle.x+=velocity.x 
+circle.y+=velocity.y
+#physics
+acceleration=100
 
-# trying to make simple figures for our tennis court
-# A blank canvas which I guess you need to make the imahge on
-# TestSurface = pygame.surface((100,100), pygame.SRCALPHA)
-#how to draw a rectangle
-# pygame.draw.rect(screen, (0, 255, 0), [0, 0, 100, 400], 0)
-pygame.draw.line(screen, (255,255,255), (500, 0) , (500, 800), 4)
-pygame.draw.line(screen, (255, 255, 255), (0, 50) , (1000, 50), 2)
-pygame.draw.line(screen, (255, 255, 255), (0, 750) , (1000, 750), 2)
-pygame.draw.line(screen, (255, 255, 255), (250, 50) , (250, 750), 2)
-pygame.draw.line(screen, (255, 255, 255), (750, 50) , (750, 750), 2)
-pygame.draw.line(screen, (255, 255, 255), (250, 400) , (750, 400), 2)
-pygame.display.update()
-time.sleep(10)
+position=+velocity
+
+if player.position==circle.position:
+    velocity.x=-velocity.x
+    velocity.y=-velocity.y
+circle.x+=velocity.x
+circle.y+=velocity.y
+if opponent.position==circle.position:
+    velocity.x=-velocity.x
+    velocity.y=-velocity.y
+circle.x+=velocity.x
+circle.y+=velocity.y
+def point():
+    if player.position<circle.position:
+        opponentscore=opponentscore+1
+        print("the opponent have",opponentscore)
+        print("you have", playerscore)
+    elif opponent.position>circle.position:
+        playerscore=playerscore+1
+        print("the opponent have",opponentscore)
+        print("you have", playerscore)
