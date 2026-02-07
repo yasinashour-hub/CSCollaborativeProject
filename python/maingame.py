@@ -10,8 +10,8 @@ pygame.display.init()
 velocity=0
 #Setting up display
 screen = pygame.display.set_mode((1000, 800))
-pygame.display.set_caption("Table Tennis")
-screen.fill((0,0,0))
+pygame.display.set_caption("Tennis Battle Royale")
+screen.fill((0,255,0))
 pygame.draw.line(screen, (255,255,255), (500, 0) , (500, 800), 4)
 pygame.draw.line(screen, (255, 255, 255), (0, 50) , (1000, 50), 2)
 pygame.draw.line(screen, (255, 255, 255), (0, 750) , (1000, 750), 2)
@@ -32,7 +32,8 @@ sprite_surface = pygame.surface((100,100), pygame.SRCALPHA)
 player_rect=pygame.draw.rect(sprite_surface, (50,0,0),(25),50)
 opponent_rect=pygame.draw.rect(sprite_surface, (150,0,0),(25),50)
 #how to draw a ball
-ball_circle=pygame.draw.rect(sprite_surface, (50,0,0), (25), 25)
+#see if this works:
+ball_circle=pygame.draw.circle(screen, (0,0,0), [0,0], 25, 0)
 
 #physics
 
