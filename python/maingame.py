@@ -32,44 +32,30 @@ opponent_rect=pygame.draw.rect(sprite_surface, (150,0,0),(25),50)
 #how to draw a ball
 #see if this works:
 ball_circle=pygame.draw.circle(screen, (0,0,0), [0,0], 25, 0)
-
-#physics
-
-
 position=+velocity
-
-
-
 def point():
-    ball_circle.x=0
-    ball_circle.y=0
-    ball_circle.x+=velocity.x 
-    ball_circle.y+=velocity.y
-    if player_rect.colliderect(ball_rect):
-        ball_circle.x=-velocity.x 
-        ball_circle.y=-velocity.y
-    if opponent_rect.colliderect(ball_rect):
-        ball_circle.x=-velocity.x 
-        ball_circle.y=-velocity.y
-    if ball_rect.left <= 0 or ball_rect.right >= 1000:
+    global opponentscore, playerscore
+    ball_circle.x += velocity.x
+    ball_circle.y += velocity.y
+    if player_rect.colliderect(ball_circle) or opponent_rect.colliderect(ball_circle):
         velocity.x *= -1
-    if ball_rect.top <= 0 or ball_rect.bottom >= 800:
+    if ball_circle.top <= 0 or ball_circle.bottom >= 800:
         velocity.y *= -1
-    if player.centerx<ball.centerx:
-        global opponentscore, playerscore
-        opponentscore=opponentscore+1
-        print("the opponent has",opponentscore)
+    if ball_circle.left <= 0:
+        opponentscore += 1
+        print("the opponent has", opponentscore)
         print("you have", playerscore)
-    elif opponent.centerx>ball.centerx:
-        global opponentscore, playerscore
-        playerscore=playerscore+1
-        print("the opponent has",opponentscore)
+        return
+    if ball_circle.right >= 1000:
+        playerscore += 1
+        print("the opponent has", opponentscore)
         print("you have", playerscore)
-    if playerscore>=opponentscore+2, and playerscore>=7
+        return
+    if playerscore >= opponentscore + 2 and playerscore >= 7:
         print("you win")
-        break
-    elif opponentscore>=playerscore+2, and opponentscore>=7
+        return
+    if opponentscore >= playerscore + 2 and opponentscore >= 7:
         print("you lose")
-        break
+        return
 While True:
     point()
