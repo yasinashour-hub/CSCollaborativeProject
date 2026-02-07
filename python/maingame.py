@@ -27,8 +27,8 @@ velocity += acceleration
 position=+velocity
 #trying to make simple figures for our tennis court
 #how you draw a rectangle
-player_rect=pygame.draw.rect(screen, (50,0,0),(25),50)
-opponent_rect=pygame.draw.rect(screen, (150,0,0),(25),50)
+player_rect=pygame.draw.rect(screen, (50,30,20,0)
+opponent_rect=pygame.draw.rect(screen, (150,0,25,40)
 #how to draw a ball
 #see if this works:
 ball_circle=pygame.draw.circle(screen, (0,0,0), [0,0], 25, 0)
