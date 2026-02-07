@@ -26,8 +26,6 @@ acceleration = pygame.Vector2(0, 100)
 velocity += acceleration
 position=+velocity
 #trying to make simple figures for our tennis court
-#A blank canvas which I guess you need to make the imahge on
-sprite_surface = pygame.surface((100,100), pygame.SRCALPHA)
 #how you draw a rectangle
 player_rect=pygame.draw.rect(sprite_surface, (50,0,0),(25),50)
 opponent_rect=pygame.draw.rect(sprite_surface, (150,0,0),(25),50)
