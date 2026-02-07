@@ -12,7 +12,13 @@ velocity=0
 screen = pygame.display.set_mode((1000, 800))
 pygame.display.set_caption("Table Tennis")
 screen.fill((0,0,0))
-
+pygame.draw.line(screen, (255,255,255), (500, 0) , (500, 800), 4)
+pygame.draw.line(screen, (255, 255, 255), (0, 50) , (1000, 50), 2)
+pygame.draw.line(screen, (255, 255, 255), (0, 750) , (1000, 750), 2)
+pygame.draw.line(screen, (255, 255, 255), (250, 50) , (250, 750), 2)
+pygame.draw.line(screen, (255, 255, 255), (750, 50) , (750, 750), 2)
+pygame.draw.line(screen, (255, 255, 255), (250, 400) , (750, 400), 2)
+pygame.display.update()
 opponentscore=0
 playerscore=0
 velocity = pygame.Vector2(0, 0)
