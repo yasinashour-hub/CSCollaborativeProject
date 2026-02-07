@@ -63,8 +63,15 @@ def point():
         print("the opponent has",opponentscore)
         print("you have", playerscore)
     elif opponent.centerx>ball.centerx:
+        global opponentscore, playerscore
         playerscore=playerscore+1
         print("the opponent has",opponentscore)
         print("you have", playerscore)
+    if playerscore>=opponentscore+2, and playerscore>=7
+        print("you win")
+        break
+    elif opponentscore>=playerscore+2, and opponentscore>=7
+        print("you lose")
+        break
 While True:
     point()
