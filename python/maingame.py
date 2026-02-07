@@ -27,10 +27,7 @@ player_rect=pygame.draw.rect(sprite_surface, (50,0,0),(25),50)
 opponent_rect=pygame.draw.rect(sprite_surface, (150,0,0),(25),50)
 #how to draw a ball
 ball_circle=pygame.draw.rect(sprite_surface, (50,0,0), (25), 25)
-ball_circle.x=0
-ball_circle.y=0
-ball_circle.x+=velocity.x 
-ball_circle.y+=velocity.y
+
 #physics
 
 
@@ -39,13 +36,20 @@ position=+velocity
 
 
 def point():
+    ball_circle.x=0
+    ball_circle.y=0
+    ball_circle.x+=velocity.x 
+    ball_circle.y+=velocity.y
     if player_rect.colliderect(ball_rect):
-        ball_circle.x-=velocity.x 
-        ball_circle.y-=velocity.y
-
+        ball_circle.x=-velocity.x 
+        ball_circle.y=-velocity.y
     if opponent_rect.colliderect(ball_rect):
-        ball_circle.x-=velocity.x 
-        ball_circle.y-=velocity.y
+        ball_circle.x=-velocity.x 
+        ball_circle.y=-velocity.y
+    if ball_rect.left <= 0 or ball_rect.right >= 1000:
+        velocity.x *= -1
+    if ball_rect.top <= 0 or ball_rect.bottom >= 800:
+        velocity.y *= -1
     if player.centerx<ball.centerx:
         global opponentscore, playerscore
         opponentscore=opponentscore+1
