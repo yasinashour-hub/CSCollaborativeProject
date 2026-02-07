@@ -27,14 +27,14 @@ velocity += acceleration
 position=+velocity
 #trying to make simple figures for our tennis court
 #how you draw a rectangle
-player_rect=pygame.draw.rect(sprite_surface, (50,0,0),(25),50)
-opponent_rect=pygame.draw.rect(sprite_surface, (150,0,0),(25),50)
+player_rect=pygame.draw.rect(screen, (50,0,0),(25),50)
+opponent_rect=pygame.draw.rect(screen, (150,0,0),(25),50)
 #how to draw a ball
 #see if this works:
 ball_circle=pygame.draw.circle(screen, (0,0,0), [0,0], 25, 0)
 position=+velocity
 def point():
-    global opponentscore, playerscore
+    global opponentscore, playerscore, ball_circle
     ball_circle.x += velocity.x
     ball_circle.y += velocity.y
     if player_rect.colliderect(ball_circle) or opponent_rect.colliderect(ball_circle):
@@ -57,5 +57,5 @@ def point():
     if opponentscore >= playerscore + 2 and opponentscore >= 7:
         print("you lose")
         return
-While True:
+while True:
     point()
