@@ -1,5 +1,7 @@
 package shop.logic; 
+
 import shop.model.Upgrade;
+
 // !!shop/logic is for rules and flow, not visuals 
 // !!shop/logic/ShopInventory is for what upgrades the shop sells, has a list, methods to see what stuff we have, 
 // contd... stuff for out of stock, tiers, and maybe sales 
@@ -7,12 +9,46 @@ import shop.model.Upgrade;
 // tiered rackets that give more power, different tennis balls to choose that increase diff stats,
 // a water bottle to increase a stamina stat for a match
 // and anything else you think of
+
 public class ShopInventory { 
     public static void main(String[] args) { 
-        Upgrade shoes = new Upgrade( "Basic Tennis Shoes", 10, "Increases your base speed by 1.", 1);
-        System.out.println(shoes.getName()); 
-        System.out.println(shoes.getCost()); 
-        System.out.println(shoes.getDescription()); 
-        System.out.println(shoes.getBonusAmount()); 
+
+        // Shoes upgrade
+        Upgrade shoes = new Upgrade( 
+            "Basic Tennis Shoes", 
+            10, 
+            "Increases your base speed by 1.",
+            "speed",
+            1, 
+            false,
+            false
+        );
+        
+        // Racket upgrade
+        Upgrade racket = new Upgrade(
+            "Basic Racket", 
+            10, 
+            "Increases your base power by 1.", 
+            "power",
+            1,
+            false,
+            false
+        );
+
+        // Potions
+        Upgrade speedPotion = new Upgrade(
+            "Speed Potion I", 
+            3, 
+            "Increases your speed by 5% for the next match.", 
+            "speed",
+            1.05,
+            true,
+            true
+        );
+
+
+        System.out.println(shoes.getName());
+        System.out.println(speedPotion.getDescription());
+        System.out.println(racket.getCost());
     } 
 }
