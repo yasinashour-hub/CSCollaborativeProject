@@ -8,6 +8,15 @@ from pygame.locals import QUIT, KEYDOWN, K_ESCAPE
 pygame.font.init()
 pygame.display.init()
 velocity=0
+
+#MAKING IT PLAY THE GIRLS
+pygame.mixer.music.set_volume(0.5)
+try:
+    pygame.mixer.music.load('cramusic.mp3')
+except pygame.error as e:
+    print(f"Error loading music file: {e}")
+pygame.mixer.music.play(-1)
+print("Music started. Press Ctrl+C in the terminal to stop.")
 #Setting up display
 screen = pygame.display.set_mode((1000, 800))
 pygame.display.set_caption("Tennis Battle Royale")
@@ -25,37 +34,46 @@ velocity = pygame.Vector2(0, 0)
 acceleration = pygame.Vector2(0, 100)
 velocity += acceleration
 position=+velocity
+
 #trying to make simple figures for our tennis court
 #how you draw a rectangle
-player_rect=pygame.draw.rect(screen, (50,30,20,0)
-opponent_rect=pygame.draw.rect(screen, (150,0,25,40)
+player_rect=pygame.draw.rect(screen, (50,30,20,0))
+opponent_rect=pygame.draw.rect(screen, (150,0,25,40))
+
 #how to draw a ball
 #see if this works:
 ball_circle=pygame.draw.circle(screen, (0,0,0), [0,0], 25, 0)
 position=+velocity
+
 def point():
     global opponentscore, playerscore, ball_circle
    # ball_circle.x += velocity.x
     #ball_circle.y += velocity.y
     if player_rect.colliderect(ball_circle) or opponent_rect.colliderect(ball_circle):
         velocity.x *= -1
+
     if ball_circle.top <= 0 or ball_circle.bottom >= 800:
         velocity.y *= -1
+
     if ball_circle.left <= 0:
         opponentscore += 1
         print("the opponent has", opponentscore)
         print("you have", playerscore)
         return
+    
     if ball_circle.right >= 1000:
         playerscore += 1
         print("the opponent has", opponentscore)
         print("you have", playerscore)
         return
+    
     if playerscore >= opponentscore + 2 and playerscore >= 7:
         print("you win")
         return
+    
     if opponentscore >= playerscore + 2 and opponentscore >= 7:
         print("you lose")
         return
+    
 while True:
     point()
