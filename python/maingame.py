@@ -2,7 +2,7 @@
 import pygame
 import time
 import random
-
+import sys
 pygame.init()
 from pygame.locals import QUIT, KEYDOWN, K_ESCAPE
 pygame.font.init()
@@ -27,16 +27,19 @@ velocity += acceleration
 position=+velocity
 #trying to make simple figures for our tennis court
 #how you draw a rectangle
-player_rect=pygame.draw.rect(screen, (50,30,20,0)
-opponent_rect=pygame.draw.rect(screen, (150,0,25,40)
+player_rect=pygame.draw.rect(screen, (50,30,20,0))
+opponent_rect=pygame.draw.rect(screen, (150,0,25,40))
 #how to draw a ball
 #see if this works:
 ball_circle=pygame.draw.circle(screen, (0,0,0), [0,0], 25, 0)
 position=+velocity
+clock=pygame.time.clock()
+fps_limit=60
+
 def point():
     global opponentscore, playerscore, ball_circle
-   # ball_circle.x += velocity.x
-    #ball_circle.y += velocity.y
+    ball_circle.x += velocity.x
+    ball_circle.y += velocity.y
     if player_rect.colliderect(ball_circle) or opponent_rect.colliderect(ball_circle):
         velocity.x *= -1
     if ball_circle.top <= 0 or ball_circle.bottom >= 800:
@@ -58,4 +61,10 @@ def point():
         print("you lose")
         return
 while True:
-    point()
+    for event in pygame.event.get():
+        if event.type == QUIT:
+            pygame.quit()
+            sys.exit()
+        pygame.display.update()
+        clock.tick(fps_limit)
+        point()
