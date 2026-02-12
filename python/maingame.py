@@ -10,13 +10,14 @@ pygame.display.init()
 velocity=0
 
 #MAKING IT PLAY THE GIRLS
-pygame.mixer.music.set_volume(0.5)
-try:
-    pygame.mixer.music.load('cramusic.mp3')
-except pygame.error as e:
-    print(f"Error loading music file: {e}")
-pygame.mixer.music.play(-1)
-print("Music started. Press Ctrl+C in the terminal to stop.")
+# pygame.mixer.music.set_volume(0.5)
+# try:
+#     pygame.mixer.music.load('cramusic.mp3')
+# except pygame.error as e:
+#     print(f"Error loading music file: {e}")
+# pygame.mixer.music.play(-1)
+# print("Music started. Press Ctrl+C in the terminal to stop.")
+
 #Setting up display
 screen = pygame.display.set_mode((1000, 800))
 pygame.display.set_caption("Tennis Battle Royale")
@@ -39,10 +40,12 @@ position=+velocity
 #how you draw a rectangle
 player_rect=pygame.draw.rect(screen, (50,30,20,0))
 opponent_rect=pygame.draw.rect(screen, (150,0,25,40))
+
 #how to draw a ball
 #see if this works:
 ball_circle=pygame.draw.circle(screen, (0,0,0), [0,0], 25, 0)
 position=+velocity
+
 def point():
     global opponentscore, playerscore, ball_circle
     ball_circle.x += velocity.x

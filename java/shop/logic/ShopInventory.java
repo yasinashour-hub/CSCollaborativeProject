@@ -46,9 +46,59 @@ public class ShopInventory {
             true
         );
 
+        Upgrade powerPotion = new Upgrade(
+            "Power Potion I", 
+            3, 
+            "Increases your power by 5% for the next match.", 
+            "power",
+            1.05,
+            true,
+            true
+        );
+
+
+        // Tennis Ball Upgrades
+
+        Upgrade spinBall = new Upgrade(
+                "Spin Ball", 
+                5, 
+                "Increases your spin by 5% when using this ball.", 
+                "spin",
+                1.05,
+                true,
+                false
+        );
+
+        Upgrade pointBall = new Upgrade(
+            "Score Ball",
+            5, 
+            "Gives you one extra point at the start of the match when using this ball.",
+            "score",
+            1,
+            false,
+            false
+        );
+
+        // Water Bottle Upgrade
+
+        Upgrade waterBottle = new Upgrade(
+            "Basic Water Bottle",
+            4,
+            "Increases your base stamina by 1.",
+            "stamina",
+            1,
+            false,
+            false
+        );
+        
+        //Testing
 
         System.out.println(shoes.getName());
         System.out.println(speedPotion.getDescription());
         System.out.println(racket.getCost());
+        System.out.println(powerPotion.isOneTimeUse());
+        System.out.println(spinBall.getStatAffected());
+        System.out.println(pointBall.getBonusAmount());
+        System.out.println(waterBottle.getClass());
     } 
 }
