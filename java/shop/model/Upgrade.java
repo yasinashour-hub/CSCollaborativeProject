@@ -60,4 +60,5 @@ public class Upgrade {
     public boolean isOneTimeUse() {
         return oneTimeUse;
     }
+    
 }

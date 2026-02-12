@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.*;
 import shop.logic.ShopInventory;
-
+import shop.model.Upgrade;
 // IMPORTANT: This file takes care of what shop.java would do, but if we see fit,
 // the appropriate code will be transfered to that file.
 
@@ -18,11 +18,17 @@ import shop.logic.ShopInventory;
 // shop/ui/ShopScreen is the visual screen for the shop, it has window setup (size, title), bg image loading,
 // contd... buttons/clickable things for the items, calls shop.java logic when something is clicked, and displaying text
 
-public class ShopScreen1 {
+public class ShopScreen {
+    private Upgrade shoes;
+    private Upgrade racket;
     private JLabel statusLabel;
     private int coins = 100; // Starting currency
 
-    public ShopScreen1() {
+    public ShopScreen() {
+
+        ShopInventory inventory = new ShopInventory(); 
+        shoes = inventory.getShoes();
+        racket = inventory.getRacket();
         // 1. Create the main application window (JFrame)
         JFrame frame = new JFrame("Java Shop GUI");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Close operation
@@ -33,19 +39,19 @@ public class ShopScreen1 {
         JPanel shopPanel = new JPanel();
         shopPanel.setLayout(new FlowLayout()); // Layout for buttons
 
-        JButton buyItem1Button = new JButton("Buy" + shoes.getName() + "for" + shoes.getCost() + "coins");
-        JButton buyItem2Button = new JButton("Buy" + racket.getName() + "for" + racket.getCost() + "coins");
+        JButton buyItem1Button = new JButton("Buy " + shoes.getName() + " for " + shoes.getCost() + " coins");
+        JButton buyItem2Button = new JButton("Buy " + racket.getName() + " for " + racket.getCost() + " coins");
         statusLabel = new JLabel("Welcome to the shop! Coins: " + coins, SwingConstants.CENTER); //
 
         // 3. Add action listeners to buttons
         buyItem1Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                buyItem(10, "Item 1");
+                buyItem(shoes.getCost(), shoes.getName());
             }
         });
 
-        buyItem2Button.addActionListener(e -> buyItem(25, "Item 2")); // Lambda expression to simplify boilerplate
+        buyItem2Button.addActionListener(e -> buyItem(racket.getCost(), racket.getName())); // Lambda expression to simplify boilerplate
 
         // 4. Add components to the panel and frame
         shopPanel.add(buyItem1Button);

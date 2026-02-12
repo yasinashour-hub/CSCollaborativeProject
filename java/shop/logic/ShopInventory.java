@@ -11,10 +11,19 @@ import shop.model.Upgrade;
 // and anything else you think of
 
 public class ShopInventory { 
-    public static void main(String[] args) { 
+    
+    private Upgrade shoes;
+    private Upgrade racket;
+    private Upgrade speedPotion;
+    private Upgrade powerPotion;
+    private Upgrade spinBall;
+    private Upgrade pointBall;
+    private Upgrade waterBottle;
+
+    public ShopInventory() {
 
         // Shoes upgrade
-        Upgrade shoes = new Upgrade(
+        shoes = new Upgrade(
             "Basic Tennis Shoes",              
             10,                                
             "Increases your base speed by 1.", 
@@ -25,7 +34,7 @@ public class ShopInventory {
         );
         
         // Racket upgrade
-        Upgrade racket = new Upgrade(
+        racket = new Upgrade(
             "Basic Racket", 
             10, 
             "Increases your base power by 1.", 
@@ -36,7 +45,7 @@ public class ShopInventory {
         );
 
         // Potions
-        Upgrade speedPotion = new Upgrade(
+        speedPotion = new Upgrade(
             "Speed Potion I", 
             3, 
             "Increases your speed by 5% for the next match.", 
@@ -46,7 +55,7 @@ public class ShopInventory {
             true
         );
 
-        Upgrade powerPotion = new Upgrade(
+        powerPotion = new Upgrade(
             "Power Potion I", 
             3, 
             "Increases your power by 5% for the next match.", 
@@ -59,7 +68,7 @@ public class ShopInventory {
 
         // Tennis Ball Upgrades
 
-        Upgrade spinBall = new Upgrade(
+        spinBall = new Upgrade(
                 "Spin Ball", 
                 5, 
                 "Increases your spin by 5% when using this ball.", 
@@ -69,7 +78,7 @@ public class ShopInventory {
                 false
         );
 
-        Upgrade pointBall = new Upgrade(
+        pointBall = new Upgrade(
             "Score Ball",
             5, 
             "Gives you one extra point at the start of the match when using this ball.",
@@ -81,7 +90,7 @@ public class ShopInventory {
 
         // Water Bottle Upgrade
 
-        Upgrade waterBottle = new Upgrade(
+        waterBottle = new Upgrade(
             "Basic Water Bottle",
             4,
             "Increases your base stamina by 1.",
@@ -90,15 +99,34 @@ public class ShopInventory {
             false,
             false
         );
-        
-        //Testing
+    }
 
-        System.out.println(shoes.getName());
-        System.out.println(speedPotion.getDescription());
-        System.out.println(racket.getCost());
-        System.out.println(powerPotion.isOneTimeUse());
-        System.out.println(spinBall.getStatAffected());
-        System.out.println(pointBall.getBonusAmount());
-        System.out.println(waterBottle.getClass());
-    } 
+    public Upgrade getShoes() {
+            return shoes;
+    }
+
+    public Upgrade getRacket() {
+            return racket;
+    }
+
+    public Upgrade getSpeedPotion() {
+            return speedPotion;
+    }
+
+    public Upgrade getPowerPotion() {
+            return powerPotion;
+    }
+
+    public Upgrade getSpinBall() {
+            return spinBall;
+    }
+
+    public Upgrade getPointBall() {
+            return pointBall;
+    }
+
+    public Upgrade getWaterBottle() {
+            return waterBottle;
+    }
+     
 }
