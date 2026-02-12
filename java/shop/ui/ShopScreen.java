@@ -1,8 +1,8 @@
-package shop.ui;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.*;
+import shop.logic.ShopInventory;
 
 // IMPORTANT: This file takes care of what shop.java would do, but if we see fit,
 // the appropriate code will be transfered to that file.
@@ -17,11 +17,11 @@ import java.awt.*;
 // shop/ui/ShopScreen is the visual screen for the shop, it has window setup (size, title), bg image loading,
 // contd... buttons/clickable things for the items, calls shop.java logic when something is clicked, and displaying text
 
-public class ShopScreen {
+public class ShopScreen1 {
     private JLabel statusLabel;
     private int coins = 100; // Starting currency
 
-    public ShopScreen() {
+    public ShopScreen1() {
         // 1. Create the main application window (JFrame)
         JFrame frame = new JFrame("Java Shop GUI");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Close operation
@@ -32,8 +32,8 @@ public class ShopScreen {
         JPanel shopPanel = new JPanel();
         shopPanel.setLayout(new FlowLayout()); // Layout for buttons
 
-        JButton buyItem1Button = new JButton("Buy Item 1 (10 coins)");
-        JButton buyItem2Button = new JButton("Buy Item 2 (25 coins)");
+        JButton buyItem1Button = new JButton("Buy" + shoes.getName() + "for" + shoes.getCost() + "coins");
+        JButton buyItem2Button = new JButton("Buy" + racket.getName() + "for" + racket.getCost() + "coins");
         statusLabel = new JLabel("Welcome to the shop! Coins: " + coins, SwingConstants.CENTER); //
 
         // 3. Add action listeners to buttons
