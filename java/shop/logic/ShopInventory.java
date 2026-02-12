@@ -14,14 +14,14 @@ public class ShopInventory {
     public static void main(String[] args) { 
 
         // Shoes upgrade
-        Upgrade shoes = new Upgrade( 
-            "Basic Tennis Shoes", 
-            10, 
-            "Increases your base speed by 1.",
-            "speed",
-            1, 
-            false,
-            false
+        Upgrade shoes = new Upgrade(
+            "Basic Tennis Shoes"              //name
+            10                                //cost
+            "Increases your base speed by 1." //description
+            "speed"                           //statAffected
+            1                                 //bonusAmount
+            false                             //percentageBased
+            false                             //oneTimeUse
         );
         
         // Racket upgrade
