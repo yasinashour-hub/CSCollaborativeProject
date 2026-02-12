@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.*;
 import shop.logic.ShopInventory;
+import shop.logic.ShopManager;
 import shop.model.Upgrade;
 // IMPORTANT: This file takes care of what shop.java would do, but if we see fit,
 // the appropriate code will be transfered to that file.
@@ -22,13 +23,16 @@ public class ShopScreen {
     private Upgrade shoes;
     private Upgrade racket;
     private JLabel statusLabel;
-    private int coins = 100; // Starting currency
+    private ShopManager shopManager; // Starting currency
 
     public ShopScreen() {
 
         ShopInventory inventory = new ShopInventory(); 
         shoes = inventory.getShoes();
         racket = inventory.getRacket();
+
+        shopManager = new ShopManager(100);
+
         // 1. Create the main application window (JFrame)
         JFrame frame = new JFrame("Java Shop GUI");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Close operation
@@ -36,26 +40,36 @@ public class ShopScreen {
         frame.setLayout(new BorderLayout()); // Use BorderLayout manager
 
         // 2. Create components (buttons, labels, panels)
-        JPanel shopPanel = new JPanel();
+        JPanel shopPanel = new BackgroundPanel("/shop/ui/shop_bg.png");
         shopPanel.setLayout(new FlowLayout()); // Layout for buttons
 
-        JButton buyItem1Button = new JButton("Buy " + shoes.getName() + " for " + shoes.getCost() + " coins");
-        JButton buyItem2Button = new JButton("Buy " + racket.getName() + " for " + racket.getCost() + " coins");
-        statusLabel = new JLabel("Welcome to the shop! Coins: " + coins, SwingConstants.CENTER); //
+        JButton buyShoesButton = 
+            new JButton("Buy " + shoes.getName() + " for " + shoes.getCost() + " coins");
+        JButton buyRacketButton = 
+            new JButton("Buy " + racket.getName() + " for " + racket.getCost() + " coins");
+        buyShoesButton.addActionListener(e -> {
+            String result = shopManager.buy(shoes);
+            statusLabel.setText(result);
+        });
+
+
+        statusLabel = new JLabel(
+            "Welcome to the shop! Coins: " + shopManager.getCoins(), SwingConstants.CENTER); //
 
         // 3. Add action listeners to buttons
-        buyItem1Button.addActionListener(new ActionListener() {
+        buyShoesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                buyItem(shoes.getCost(), shoes.getName());
+                String result = shopManager.buy(shoes);
+                statusLabel.setText(result);
             }
         });
 
-        buyItem2Button.addActionListener(e -> buyItem(racket.getCost(), racket.getName())); // Lambda expression to simplify boilerplate
+        buyRacketButton.addActionListener(e -> statusLabel.setText(shopManager.buy(racket))); // Lambda expression to simplify boilerplate
 
         // 4. Add components to the panel and frame
-        shopPanel.add(buyItem1Button);
-        shopPanel.add(buyItem2Button);
+        shopPanel.add(buyShoesButton);
+        shopPanel.add(buyRacketButton);
 
         frame.add(statusLabel, BorderLayout.NORTH);
         frame.add(shopPanel, BorderLayout.CENTER);
@@ -64,23 +78,25 @@ public class ShopScreen {
         frame.setLocationRelativeTo(null); // Center the window
         frame.setVisible(true); // Make the frame visible
     }
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new ShopScreen());
+    }
+}
+//Background panel class
 
-    // Method to handle buying logic
-    private void buyItem(int cost, String itemName) {
-        if (coins >= cost) {
-            coins -= cost;
-            statusLabel.setText("You bought " + itemName + "! Coins left: " + coins);
-        } else {
-            statusLabel.setText("Not enough coins to buy " + itemName + "! Coins: " + coins);
-        }
+class BackgroundPanel extends JPanel {
+
+    private Image background;
+
+    public BackgroundPanel(String path) {
+        background = new ImageIcon(
+            getClass().getResource(path)
+        ).getImage();
     }
 
-    public static void main(String[] args) {
-        // Ensure the GUI creation is done on the Event Dispatch Thread (EDT)
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                new ShopScreen();
-            }
-        });
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
     }
 }
