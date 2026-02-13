@@ -9,7 +9,7 @@ import shop.model.Upgrade;
 // IMPORTANT: This file takes care of what shop.java would do, but if we see fit,
 // the appropriate code will be transfered to that file.
 
-// STEPS TO RUN (type in default terminal in current working directory):
+// STEPS TO RUN (type in default terminal in project directory):
 // 1. clear
 // 2. javac ShopScreen.java
 // 3. java ShopScreen
