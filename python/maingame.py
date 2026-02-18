@@ -67,7 +67,7 @@ def movement():
         if event.key == K_UP:
                 up()
                 return
-        if event.key == K_DOWN:
+        if event.key == KEYDOWN:
                 down()
                 return
         if event.key == K_LEFT:
