@@ -21,6 +21,26 @@ def court():
         pygame.draw.line(screen, (255, 255, 255), (750, 50) , (750, 750), 2)
         pygame.draw.line(screen, (255, 255, 255), (250, 400) , (750, 400), 2)
         pygame.display.update()
+def minigame():
+    choice1 = input("You notice someone with a troubled expression on their face. Do you want to help? Y/N")
+    if choice1.lower() == "y":
+           print("\nYou walk up to the person, who seems relieved that someone came to their aid.'What seems to be the matter?' you ask.")
+           print("\nI need help with my math homework,' he replies. 'My name is Timmy, and I'm usually my parent's pride and joy, but today I'm hiding out at the tennis court until I finish all my homework.")
+           print("\nOkay, I have one question left: Solve ln(e^6/e^-2).")
+           homework = None
+           while homework != 8:  
+                  homework = int(input("Solve the expression."))
+                  if homework != 8:
+                        print("Try again, for Timmy's future depends on it.")
+                  else:
+                        print("You are correct! Timmy rejoices and immediately writes down the answer. 'Thank you,' he exclaims.'Here, take this reward. My parents will be so proud, and I will get to keep my #1 spot in SALSA High School.'")
+                        coins = coins + 15
+                        break
+    elif choice1.lower() == "n":
+        print("\nYou decide not to help, and leave them to their business.")
+    else:
+           print("\nYou feel conflicted, but ultimately decide not to help.")     
+
 def music():
         pygame.mixer.music.load("cramusic.mp3")
         pygame.mixer.music.play(-1)
