@@ -20,6 +20,11 @@ def court():
         pygame.draw.line(screen, (255, 255, 255), (750, 50) , (750, 750), 2)
         pygame.draw.line(screen, (255, 255, 255), (250, 400) , (750, 400), 2)
         pygame.display.update()
+def music():
+        pygame.mixer.music.load("cramusic.mp3")
+        pygame.mixer.music.play(-1)
+        pygame.mixer.music.set_volume(0.5)
+        #i think there's another line to add to make the music play but im not sure what it is
 opponentscore=0
 playerscore=0
 velocity = pygame.Vector2(0, 0)
@@ -36,6 +41,8 @@ opponent_rect=pygame.draw.rect(screen, (150,0,25,40))
 #see if this works:
 ball_circle=pygame.draw.circle(screen, (0,0,0), [0,0], 25, 0)
 position=+velocity
+court()
+# music()
 def up():
         player_rect.y += 10
         if player_rect.y >= 750:
@@ -82,8 +89,7 @@ def point():
     fps_limit = 60
     # trying to make simple figures for our tennis court
     # how you draw a rectangle
-    court()
-
+        
     ball_circle.x += velocity.x
     ball_circle.y += velocity.y
     
