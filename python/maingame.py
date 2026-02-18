@@ -67,7 +67,7 @@ def movement():
         if event.key == K_UP:
                 up()
                 return
-        if event.key == K_DOWN:
+        if event.key == KEYDOWN:
                 down()
                 return
         if event.key == K_LEFT:
@@ -92,7 +92,7 @@ def point():
         
     ball_circle.x += velocity.x
     ball_circle.y += velocity.y
-    
+    movement()
     if player_rect.colliderect(ball_circle) or opponent_rect.colliderect(ball_circle):
         velocity.x *= -1
     if ball_circle.top <= 0 or ball_circle.bottom >= 800:
