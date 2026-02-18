@@ -62,7 +62,7 @@ public class ShopScreen {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String result = shopManager.buy(shoes);
-                statusLabel.setText(result + " | Coins: " + shopManager.getCoins());
+                statusLabel.setText(result);
             }
         });
 
@@ -70,7 +70,7 @@ public class ShopScreen {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String result = shopManager.buy(racket);
-                statusLabel.setText(result + " | Coins: " + shopManager.getCoins());
+                statusLabel.setText(result);
             }
         }); // Lambda expression to simplify boilerplate
 
