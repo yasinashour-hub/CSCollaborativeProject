@@ -36,7 +36,7 @@ clock=pygame.time.Clock()
 fps_limit = 60
 #trying to make simple figures for our tennis court
 #how you draw a rectangle
-player_rect=pygame.draw.rect(screen, (100,200,200), pygame.Rect(30, 30, 60, 60)) 
+player_rect=pygame.draw.rect(screen, (100,200,200), pygame.Rect(100, 100, 130, 130)) 
 opponent_rect=pygame.draw.rect(screen, (0,0,0), pygame.Rect(30, 30, 60, 60)) 
 #how to drawa ball
 #see if this works:
@@ -46,36 +46,32 @@ court()
 # music()
 def up():
         player_rect.y += 10
-        if player_rect.y >= 750:
-                player_rect.y = 750
-                return
+        return
 def down():
         player_rect.y -= 10
-        if player_rect.y <= 50:
-                player_rect.y = 50
-                return
+        return
 def left():
         player_rect.x -= 10
-        if player_rect.x <= 250:
-                player_rect.x = 250
-                return
+        return
 def right():
         player_rect.x += 10
-        if player_rect.x >= 750:
-                player_rect.x = 750
-                return
+        return
 def movement():
         if pygame.event == K_UP:
                 up()
+                pygame.display.update()
                 return
         if pygame.event == KEYDOWN:
                 down()
+                pygame.display.update()
                 return
         if pygame.event == K_LEFT:
                 left()
+                pygame.display.update()
                 return
         if pygame.event == K_RIGHT:
                 right()
+                pygame.display.update()
                 return
 
 def point():
@@ -93,6 +89,7 @@ def point():
 
    # ball_circle += velocity.x
     #ball_circle += velocity.y
+        
 
     movement()
     if player_rect.colliderect(ball_circle) or opponent_rect.colliderect(ball_circle):
@@ -115,10 +112,8 @@ def point():
     if opponentscore >= playerscore + 2 and opponentscore >= 7:
         print("you lose")
         return
-while playerscore >= opponentscore + 2 and playerscore >= 7 and opponentscore >= playerscore + 2 and opponentscore >= 7:
-        for pygame.event in pygame.event.get():
-                continue
-        pygame.display.update()
-        clock.tick(fps_limit)
-        point()
-        break
+while True:
+         for event in pygame.event.get():
+                              
+                point()
+                pygame.display.update()
