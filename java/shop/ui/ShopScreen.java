@@ -22,11 +22,11 @@ import shop.model.Upgrade;
 public class ShopScreen {
     private Upgrade shoes;
     private Upgrade racket;
-    // private Upgrade speedPotion;
-    // private Upgrade powerPotion;
-    // private Upgrade spinBall;
-    // private Upgrade pointBall;
-    // private Upgrade waterBottle;
+    private Upgrade speedPotion;
+    private Upgrade powerPotion;
+    private Upgrade spinBall;
+    private Upgrade pointBall;
+    private Upgrade waterBottle;
     private JLabel statusLabel;
     private ShopManager shopManager; // Starting currency
 
@@ -45,14 +45,17 @@ public class ShopScreen {
         frame.setLayout(new BorderLayout()); // Use BorderLayout manager
 
         // 2. Create components (buttons, labels, panels)
-        JPanel shopPanel = new BackgroundPanel("java/shop/assets/shop_bg.png");
+        JPanel shopPanel = new BackgroundPanel("/home/yasinashour/CS_Game/CSCollaborativeProject-1/java/shop/assets/shop_bg.png");
         shopPanel.setLayout(new GridBagLayout()); // Layout for buttons
 
         JButton buyShoesButton = 
             new JButton("Buy " + shoes.getName() + " for " + shoes.getCost() + " coins");
         JButton buyRacketButton = 
             new JButton("Buy " + racket.getName() + " for " + racket.getCost() + " coins");
-
+        JButton buyspeedPotionButton =
+            new JButton("Buy " + speedPotion.getName() + " for " + speedPotion.getCost() + " coins");
+        JButton buypowerPotionButton =
+            new JButton("Buy " + powerPotion.getName() + " for " + powerPotion.getCost() + " coins");
 
         statusLabel = new JLabel(
             "Welcome to the shop! Coins: " + shopManager.getCoins(), SwingConstants.CENTER); //
@@ -74,12 +77,30 @@ public class ShopScreen {
             }
         }); // Lambda expression to simplify boilerplate
 
+        buyspeedPotionButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String result = shopManager.buy(speedPotion);
+                statusLabel.setText(result);
+            }
+        });
+
+        buypowerPotionButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String result = shopManager.buy(powerPotion);
+                statusLabel.setText(result);
+            }
+        });
         // 4. Add components to the panel and frame
         shopPanel.add(buyShoesButton);
         shopPanel.add(buyRacketButton);
+        shopPanel.add(buyspeedPotionButton);
+        shopPanel.add(buypowerPotionButton);
 
         frame.add(statusLabel, BorderLayout.NORTH);
         frame.add(shopPanel, BorderLayout.CENTER);
+        
 
         // 5. Display the window
         frame.setLocationRelativeTo(null); // Center the window
