@@ -45,7 +45,7 @@ public class ShopScreen {
         frame.setLayout(new BorderLayout()); // Use BorderLayout manager
 
         // 2. Create components (buttons, labels, panels)
-        JPanel shopPanel = new BackgroundPanel("/shop/assets/shop_bg.png");
+        JPanel shopPanel = new BackgroundPanel("java/shop/assets/shop_bg.png");
         shopPanel.setLayout(new GridBagLayout()); // Layout for buttons
 
         JButton buyShoesButton = 
@@ -62,7 +62,7 @@ public class ShopScreen {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String result = shopManager.buy(shoes);
-                statusLabel.setText(result + " | Coins: " + shopManager.getCoins());
+                statusLabel.setText(result);
             }
         });
 
@@ -70,7 +70,7 @@ public class ShopScreen {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String result = shopManager.buy(racket);
-                statusLabel.setText(result + " | Coins: " + shopManager.getCoins());
+                statusLabel.setText(result);
             }
         }); // Lambda expression to simplify boilerplate
 
