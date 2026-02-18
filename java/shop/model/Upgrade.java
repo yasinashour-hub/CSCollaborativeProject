@@ -13,6 +13,8 @@ public class Upgrade {
     private double bonusAmount;       // 1 or 1.05
     private boolean percentageBased;  // false = +1, true = ×1.05
     private boolean oneTimeUse;
+    private boolean permanent;
+    
 
     public Upgrade(
             String name,
@@ -21,7 +23,8 @@ public class Upgrade {
             String statAffected,
             double bonusAmount,
             boolean percentageBased,
-            boolean oneTimeUse
+            boolean oneTimeUse,
+            boolean permanent
     ) {
         this.name = name;
         this.cost = cost;
@@ -30,6 +33,7 @@ public class Upgrade {
         this.bonusAmount = bonusAmount;
         this.percentageBased = percentageBased;
         this.oneTimeUse = oneTimeUse;
+        this.permanent = permanent;
     }
 
     // getters only
@@ -59,6 +63,10 @@ public class Upgrade {
 
     public boolean isOneTimeUse() {
         return oneTimeUse;
+    }
+
+    public boolean isPermanent() {
+        return permanent;
     }
     
 }

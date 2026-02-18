@@ -22,6 +22,11 @@ import shop.model.Upgrade;
 public class ShopScreen {
     private Upgrade shoes;
     private Upgrade racket;
+    private Upgrade speedPotion;
+    private Upgrade powerPotion;
+    private Upgrade spinBall;
+    private Upgrade pointBall;
+    private Upgrade waterBottle;
     private JLabel statusLabel;
     private ShopManager shopManager; // Starting currency
 
@@ -40,17 +45,13 @@ public class ShopScreen {
         frame.setLayout(new BorderLayout()); // Use BorderLayout manager
 
         // 2. Create components (buttons, labels, panels)
-        JPanel shopPanel = new BackgroundPanel("/shop/ui/shop_bg.png");
-        shopPanel.setLayout(new FlowLayout()); // Layout for buttons
+        JPanel shopPanel = new BackgroundPanel("/shop/assets/shop_bg.png");
+        shopPanel.setLayout(new GridBagLayout()); // Layout for buttons
 
         JButton buyShoesButton = 
             new JButton("Buy " + shoes.getName() + " for " + shoes.getCost() + " coins");
         JButton buyRacketButton = 
             new JButton("Buy " + racket.getName() + " for " + racket.getCost() + " coins");
-        buyShoesButton.addActionListener(e -> {
-            String result = shopManager.buy(shoes);
-            statusLabel.setText(result);
-        });
 
 
         statusLabel = new JLabel(
@@ -61,11 +62,17 @@ public class ShopScreen {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String result = shopManager.buy(shoes);
-                statusLabel.setText(result);
+                statusLabel.setText(result + " | Coins: " + shopManager.getCoins());
             }
         });
 
-        buyRacketButton.addActionListener(e -> statusLabel.setText(shopManager.buy(racket))); // Lambda expression to simplify boilerplate
+        buyRacketButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String result = shopManager.buy(racket);
+                statusLabel.setText(result + " | Coins: " + shopManager.getCoins());
+            }
+        }); // Lambda expression to simplify boilerplate
 
         // 4. Add components to the panel and frame
         shopPanel.add(buyShoesButton);
@@ -89,10 +96,15 @@ class BackgroundPanel extends JPanel {
     private Image background;
 
     public BackgroundPanel(String path) {
-        background = new ImageIcon(
-            getClass().getResource(path)
-        ).getImage();
+        java.net.URL imgURL = getClass().getResource(path);
+
+        if (imgURL == null) {
+            System.out.println("ERROR: Background image not found at " + path);
+        } else {
+            background = new ImageIcon(imgURL).getImage();
+        }
     }
+
 
     @Override
     protected void paintComponent(Graphics g) {

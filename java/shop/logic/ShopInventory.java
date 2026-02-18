@@ -30,7 +30,8 @@ public class ShopInventory {
             "speed",                           
             1,                                 
             false,                            
-            false                             
+            false,
+            true                             
         );
         
         // Racket upgrade
@@ -41,7 +42,8 @@ public class ShopInventory {
             "power",
             1,
             false,
-            false
+            false,
+            true
         );
 
         // Potions
@@ -52,7 +54,8 @@ public class ShopInventory {
             "speed",
             1.05,
             true,
-            true
+            true,
+            false
         );
 
         powerPotion = new Upgrade(
@@ -62,7 +65,8 @@ public class ShopInventory {
             "power",
             1.05,
             true,
-            true
+            true,
+            false
         );
 
 
@@ -75,7 +79,8 @@ public class ShopInventory {
                 "spin",
                 1.05,
                 true,
-                false
+                false,
+                true
         );
 
         pointBall = new Upgrade(
@@ -85,7 +90,8 @@ public class ShopInventory {
             "score",
             1,
             false,
-            false
+            false,
+            true
         );
 
         // Water Bottle Upgrade
@@ -97,7 +103,8 @@ public class ShopInventory {
             "stamina",
             1,
             false,
-            false
+            false,
+            true
         );
     }
 
