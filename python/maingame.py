@@ -34,7 +34,7 @@ def minigame():
                         print("Try again, for Timmy's future depends on it.")
                   else:
                         print("You are correct! Timmy rejoices and immediately writes down the answer. 'Thank you,' he exclaims.'Here, take this reward. My parents will be so proud, and I will get to keep my #1 spot in SALSA High School.'")
-                        coins = coins + 15
+                        coins = coins + 25
                         break
     elif choice1.lower() == "n":
         print("\nYou decide not to help, and leave them to their business.")
@@ -48,6 +48,7 @@ def music():
         #i think there's another line to add to make the music play but im not sure what it is
 opponentscore=0
 playerscore=0
+coins = 100
 velocity = pygame.Vector2(0, 0)
 acceleration = pygame.Vector2(0, 100)
 velocity += acceleration
@@ -128,6 +129,7 @@ def point():
         return
     if playerscore >= opponentscore + 2 and playerscore >= 7:
         print("you win")
+        coins = coins + 10
         return
     if opponentscore >= playerscore + 2 and opponentscore >= 7:
         print("you lose")
