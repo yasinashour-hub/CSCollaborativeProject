@@ -26,7 +26,7 @@ velocity = pygame.Vector2(0, 0)
 acceleration = pygame.Vector2(0, 100)
 velocity += acceleration
 position=+velocity
-clock=pygame.time.clock()
+clock=pygame.time.Clock()
 fps_limit = 60
 #trying to make simple figures for our tennis court
 #how you draw a rectangle
