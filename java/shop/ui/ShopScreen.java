@@ -22,11 +22,11 @@ import shop.model.Upgrade;
 public class ShopScreen {
     private Upgrade shoes;
     private Upgrade racket;
-    private Upgrade speedPotion;
-    private Upgrade powerPotion;
-    private Upgrade spinBall;
-    private Upgrade pointBall;
-    private Upgrade waterBottle;
+    // private Upgrade speedPotion;
+    // private Upgrade powerPotion;
+    // private Upgrade spinBall;
+    // private Upgrade pointBall;
+    // private Upgrade waterBottle;
     private JLabel statusLabel;
     private ShopManager shopManager; // Starting currency
 
