@@ -1,12 +1,16 @@
 import pygame
 import random
-
+from pygame import mixer
 # Setup
 pygame.init()
 WIDTH, HEIGHT = 1000, 800
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
-
+pygame.mixer.pre_init(frequency=44100, size=-16, channels=2, buffer=512)
+pygame.mixer.init(44100, 16, 2, 512)
+# pygame.mixer.music.load("the girlssss.mp3")
+# pygame.mixer.music.play(-1)
+# pygame.mixer.music.set_volume(0.5)
 # Constants
 GREEN, WHITE, YELLOW = (0, 255, 0), (255, 255, 255), (255, 255, 0)
 
