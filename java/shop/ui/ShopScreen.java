@@ -35,8 +35,13 @@ public class ShopScreen {
         ShopInventory inventory = new ShopInventory(); 
         shoes = inventory.getShoes();
         racket = inventory.getRacket();
+        speedPotion = inventory.getSpeedPotion();
+        powerPotion = inventory.getPowerPotion();
+        spinBall = inventory.getSpinBall();
+        pointBall = inventory.getPointBall();
+        waterBottle = inventory.getWaterBottle();
 
-        shopManager = new ShopManager(100);
+        shopManager = new ShopManager(15);
 
         // 1. Create the main application window (JFrame)
         JFrame frame = new JFrame("Java Shop GUI");
@@ -56,6 +61,12 @@ public class ShopScreen {
             new JButton("Buy " + speedPotion.getName() + " for " + speedPotion.getCost() + " coins");
         JButton buypowerPotionButton =
             new JButton("Buy " + powerPotion.getName() + " for " + powerPotion.getCost() + " coins");
+        JButton buySpinBallButton =
+            new JButton("Buy " + spinBall.getName() + " for " + spinBall.getCost() + " coins");
+        JButton buyPointBallButton =
+            new JButton("Buy " + pointBall.getName() + " for " + pointBall.getCost() + " coins");
+        JButton buyWaterBottleButton =
+            new JButton("Buy " + waterBottle.getName() + " for " + waterBottle.getCost() + " coins");
 
         statusLabel = new JLabel(
             "Welcome to the shop! Coins: " + shopManager.getCoins(), SwingConstants.CENTER); //
@@ -92,11 +103,40 @@ public class ShopScreen {
                 statusLabel.setText(result);
             }
         });
+
+        buySpinBallButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String result = shopManager.buy(spinBall);
+                statusLabel.setText(result);
+            }
+        });
+
+        buyPointBallButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String result = shopManager.buy(pointBall);
+                statusLabel.setText(result);
+            }
+        });
+
+        buyWaterBottleButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String result = shopManager.buy(waterBottle);
+                statusLabel.setText(result);
+            }
+        });
+
+
         // 4. Add components to the panel and frame
         shopPanel.add(buyShoesButton);
         shopPanel.add(buyRacketButton);
         shopPanel.add(buyspeedPotionButton);
         shopPanel.add(buypowerPotionButton);
+        shopPanel.add(buySpinBallButton);
+        shopPanel.add(buyPointBallButton);
+        shopPanel.add(buyWaterBottleButton);
 
         frame.add(statusLabel, BorderLayout.NORTH);
         frame.add(shopPanel, BorderLayout.CENTER);
@@ -132,4 +172,5 @@ class BackgroundPanel extends JPanel {
         super.paintComponent(g);
         g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
     }
+
 }
