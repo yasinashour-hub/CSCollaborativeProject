@@ -37,7 +37,7 @@ class Shop {
         }
     }
     
-    public int getCoins() {
+    public int getCoins(Player player) {
         return player.coins;
     }
 }
