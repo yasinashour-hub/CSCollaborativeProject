@@ -67,8 +67,14 @@ while running:
 
     # Draw
     screen.fill(GREEN)
-    pygame.draw.rect(screen, WHITE, (50, 50, WIDTH-100, HEIGHT-100), 3) # Court
-    pygame.draw.line(screen, WHITE, (WIDTH//2, 50), (WIDTH//2, HEIGHT-50), 2) # Net
+    pygame.draw.line(screen, (255,255,255), (500, 0) , (500, 800), 4)
+    pygame.draw.line(screen, (255, 255, 255), (0, 50) , (1000, 50), 2)
+    pygame.draw.line(screen, (255, 255, 255), (0, 750) , (1000, 750), 2)
+    pygame.draw.line(screen, (255, 255, 255), (250, 50) , (250, 750), 2)
+    pygame.draw.line(screen, (255, 255, 255), (750, 50) , (750, 750), 2)
+    pygame.draw.line(screen, (255, 255, 255), (250, 400) , (750, 400), 2)
+    # pygame.draw.rect(screen, WHITE, (50, 50, WIDTH-100, HEIGHT-100), 3) # Court
+    # pygame.draw.line(screen, WHITE, (WIDTH//2, 50), (WIDTH//2, HEIGHT-50), 2) # Net
     all_sprites.draw(screen)
     
     pygame.display.flip()
