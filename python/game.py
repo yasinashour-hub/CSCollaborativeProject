@@ -1,5 +1,6 @@
 import pygame
 import random
+from pygame import mixer
 
 global p1point, p2point
 p1point=0
