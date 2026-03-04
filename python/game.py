@@ -1,6 +1,5 @@
 import pygame
 import random
-from pygame import mixer
 
 global p1point, p2point
 p1point=0
@@ -10,7 +9,9 @@ pygame.init()
 WIDTH, HEIGHT = 1000, 800
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
-
+pygame.mixer.pre_init(frequency=44100, size=-16, channels=2, buffer=512)
+pygame.mixer.init(44100, -16, 2, 512)
+from pygame import mixer
 # Constants
 GREEN, WHITE, YELLOW = (34, 139, 34), (255, 255, 255), (255, 255, 0)
 
@@ -87,6 +88,9 @@ while running:
     # pygame.draw.rect(screen, WHITE, (50, 50, WIDTH-100, HEIGHT-100), 3) # Court
     # pygame.draw.line(screen, WHITE, (WIDTH//2, 50), (WIDTH//2, HEIGHT-50), 2) # Net
     all_sprites.draw(screen)
+    pygame.mixer.music.load("assets/the\ girlssss.mp3")
+    pygame.mixer.music.play(-1)
+    pygame.mixer.music.set_volume(1.0)
 
     pygame.display.flip()
     clock.tick(60)
