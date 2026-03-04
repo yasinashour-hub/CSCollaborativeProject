@@ -41,7 +41,7 @@ public class ShopScreen {
         pointBall = inventory.getPointBall();
         waterBottle = inventory.getWaterBottle();
 
-        shopManager = new ShopManager(15);
+        shopManager = new ShopManager(20);
 
         // 1. Create the main application window (JFrame)
         JFrame frame = new JFrame("Java Shop GUI");

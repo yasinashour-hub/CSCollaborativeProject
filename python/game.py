@@ -7,8 +7,14 @@ WIDTH, HEIGHT = 1000, 800
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 
+# Define font size
+font = pygame.font.Font(None, 74) 
+
+score_a = 0
+score_b = 0
+
 # Constants
-GREEN, WHITE, YELLOW = (34, 139, 34), (255, 255, 255), (255, 255, 0)
+GREEN, WHITE, YELLOW, BLACK = (34, 139, 34), (255, 255, 255), (255, 255, 0), (0, 0, 0)
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, x, up_key, down_key):
@@ -64,6 +70,19 @@ while running:
     # Score reset
     if ball.rect.left <= 0 or ball.rect.right >= WIDTH:
         ball.reset()
+    
+    # Assuming 'ball' is a Pygame Rect object and 'ball_speed_x'/'ball_speed_y' track its movement
+    if ball.right >= WIDTH:
+        score_a += 1
+        # Reset ball position and reverse direction (implement a function for this)
+        ball.center = (WIDTH//2, HEIGHT//2)
+        ball_speed_x *= -1
+
+    if ball.left <= 0:
+        score_b += 1
+        # Reset ball position and reverse direction
+        ball.center = (WIDTH//2, HEIGHT//2)
+        ball_speed_x *= -1
 
     # Draw
     screen.fill(GREEN)
@@ -71,7 +90,21 @@ while running:
     pygame.draw.line(screen, WHITE, (WIDTH//2, 50), (WIDTH//2, HEIGHT-50), 2) # Net
     all_sprites.draw(screen)
     
-    pygame.display.flip()
+    # Clear the screen first (e.g., fill with black)
+    screen.fill(BLACK) 
+
+    # Render score text
+    text_a = font.render(str(score_a), True, WHITE)
+    text_b = font.render(str(score_b), True, WHITE)
+
+    # Position the text (adjust coordinates as needed for your screen size)
+    # This places scores near the center top of the screen
+    screen.blit(text_a, (WIDTH//4, 10))
+    screen.blit(text_b, (WIDTH//4 * 3 - text_b.get_width(), 10))
+
+    # Update the display
+    pygame.display.flip() 
+
     clock.tick(60)
 
 pygame.quit()
