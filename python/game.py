@@ -1,6 +1,9 @@
 import pygame
 import random
 
+global p1point, p2point
+p1point=0
+p2point=0
 # Setup
 pygame.init()
 WIDTH, HEIGHT = 1000, 800
@@ -64,9 +67,14 @@ while running:
         ball.dx *= -1.1  # Speed up slightly on hit
 
     # Score reset
-    if ball.rect.left <= 0 or ball.rect.right >= WIDTH:
+    if ball.rect.left <= 0:
         ball.reset()
-
+        p1point=p1point+1
+        print("player 1 has",p1point,"player 2 has",p2point)
+    if ball.rect.right >= WIDTH:
+        ball.reset()
+        p2point=p2point+1
+        print("player 1 has",p1point,"player 2 has",p2point)
     # Draw
     screen.fill(GREEN)
     pygame.draw.line(screen, (255,255,255), (500, 0) , (500, 800), 4)
