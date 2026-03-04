@@ -4,6 +4,7 @@ import random
 global p1point, p2point
 p1point=0
 p2point=0
+
 # Setup
 pygame.init()
 WIDTH, HEIGHT = 1000, 800
@@ -57,6 +58,10 @@ p2 = Player(WIDTH - 50, pygame.K_UP, pygame.K_DOWN, pygame.K_LEFT, pygame.K_RIGH
 ball = Ball()
 all_sprites = pygame.sprite.Group(p1, p2, ball)
 
+pygame.mixer.music.load("python/assets/classic.mp3")
+pygame.mixer.music.play()
+pygame.mixer.music.set_volume(1.0) 
+
 running = True
 while running:
     for event in pygame.event.get():
@@ -77,6 +82,7 @@ while running:
         ball.reset()
         p2point=p2point+1
         print("player 1 has",p1point,"player 2 has",p2point)
+   
     # Draw
     screen.fill(GREEN)
     pygame.draw.line(screen, (255,255,255), (500, 0) , (500, 800), 4)
@@ -88,11 +94,7 @@ while running:
     # pygame.draw.rect(screen, WHITE, (50, 50, WIDTH-100, HEIGHT-100), 3) # Court
     # pygame.draw.line(screen, WHITE, (WIDTH//2, 50), (WIDTH//2, HEIGHT-50), 2) # Net
     all_sprites.draw(screen)
-    pygame.mixer.music.load("assets/the\ girlssss.mp3")
-    pygame.mixer.music.play(-1)
-    pygame.mixer.music.set_volume(1.0)
 
     pygame.display.flip()
     clock.tick(60)
-
 pygame.quit()
