@@ -58,7 +58,7 @@ p2 = Player(WIDTH - 50, pygame.K_UP, pygame.K_DOWN, pygame.K_LEFT, pygame.K_RIGH
 ball = Ball()
 all_sprites = pygame.sprite.Group(p1, p2, ball)
 
-pygame.mixer.music.load("python/assets/cramusic.mp3")
+pygame.mixer.music.load("python/assets/strategy_twice.mp3")
 pygame.mixer.music.play()
 pygame.mixer.music.set_volume(1.0) 
 
