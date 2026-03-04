@@ -1,33 +1,34 @@
 import pygame
 import random
 
+global p1point, p2point
+p1point=0
+p2point=0
 # Setup
 pygame.init()
 WIDTH, HEIGHT = 1000, 800
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
-
-# Define font size
-font = pygame.font.Font(None, 74) 
-
-score_a = 0
-score_b = 0
-
+pygame.mixer.pre_init(frequency=44100, size=-16, channels=2, buffer=512)
+pygame.mixer.init(44100, -16, 2, 512)
+from pygame import mixer
 # Constants
-GREEN, WHITE, YELLOW, BLACK = (34, 139, 34), (255, 255, 255), (255, 255, 0), (0, 0, 0)
+GREEN, WHITE, YELLOW = (34, 139, 34), (255, 255, 255), (255, 255, 0)
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, x, up_key, down_key):
+    def __init__(self, x, up_key, down_key,right_key,left_key):
         super().__init__()
         self.image = pygame.Surface((15, 80))
         self.image.fill(WHITE)
         self.rect = self.image.get_rect(center=(x, HEIGHT // 2))
-        self.up_key, self.down_key = up_key, down_key
+        self.up_key, self.down_key,self.right_key,self.left_key = up_key, down_key, right_key, left_key
 
     def update(self):
         keys = pygame.key.get_pressed()
         if keys[self.up_key]: self.rect.y -= 7
         if keys[self.down_key]: self.rect.y += 7
+        if keys[self.right_key]: self.rect.x -= 7
+        if keys[self.left_key]: self.rect.x += 7
         self.rect.clamp_ip(screen.get_rect())
 
 class Ball(pygame.sprite.Sprite):
@@ -51,8 +52,8 @@ class Ball(pygame.sprite.Sprite):
             self.dy *= -1
 
 # Objects
-p1 = Player(50, pygame.K_w, pygame.K_s)
-p2 = Player(WIDTH - 50, pygame.K_UP, pygame.K_DOWN)
+p1 = Player(50, pygame.K_w, pygame.K_s, pygame.K_a, pygame.K_d)
+p2 = Player(WIDTH - 50, pygame.K_UP, pygame.K_DOWN, pygame.K_LEFT, pygame.K_RIGHT)
 ball = Ball()
 all_sprites = pygame.sprite.Group(p1, p2, ball)
 
@@ -68,22 +69,14 @@ while running:
         ball.dx *= -1.1  # Speed up slightly on hit
 
     # Score reset
-    if ball.rect.left <= 0 or ball.rect.right >= WIDTH:
+    if ball.rect.left <= 0:
         ball.reset()
-    
-    # Assuming 'ball' is a Pygame Rect object and 'ball_speed_x'/'ball_speed_y' track its movement
-    if ball.right >= WIDTH:
-        score_a += 1
-        # Reset ball position and reverse direction (implement a function for this)
-        ball.center = (WIDTH//2, HEIGHT//2)
-        ball_speed_x *= -1
-
-    if ball.left <= 0:
-        score_b += 1
-        # Reset ball position and reverse direction
-        ball.center = (WIDTH//2, HEIGHT//2)
-        ball_speed_x *= -1
-
+        p1point=p1point+1
+        print("player 1 has",p1point,"player 2 has",p2point)
+    if ball.rect.right >= WIDTH:
+        ball.reset()
+        p2point=p2point+1
+        print("player 1 has",p1point,"player 2 has",p2point)
     # Draw
     screen.fill(GREEN)
     pygame.draw.line(screen, (255,255,255), (500, 0) , (500, 800), 4)
@@ -95,22 +88,11 @@ while running:
     # pygame.draw.rect(screen, WHITE, (50, 50, WIDTH-100, HEIGHT-100), 3) # Court
     # pygame.draw.line(screen, WHITE, (WIDTH//2, 50), (WIDTH//2, HEIGHT-50), 2) # Net
     all_sprites.draw(screen)
-    
-    # Clear the screen first (e.g., fill with black)
-    screen.fill(BLACK) 
+    pygame.mixer.music.load("assets/the\ girlssss.mp3")
+    pygame.mixer.music.play(-1)
+    pygame.mixer.music.set_volume(1.0)
 
-    # Render score text
-    text_a = font.render(str(score_a), True, WHITE)
-    text_b = font.render(str(score_b), True, WHITE)
-
-    # Position the text (adjust coordinates as needed for your screen size)
-    # This places scores near the center top of the screen
-    screen.blit(text_a, (WIDTH//4, 10))
-    screen.blit(text_b, (WIDTH//4 * 3 - text_b.get_width(), 10))
-
-    # Update the display
-    pygame.display.flip() 
-
+    pygame.display.flip()
     clock.tick(60)
 
 pygame.quit()

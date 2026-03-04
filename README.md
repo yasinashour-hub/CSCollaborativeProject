@@ -1,6 +1,6 @@
 # CSCollaborativeProject
 We have the two different parts, the shop and the main game. 
-The main game is in the python, pretty self-explanatory. 
+The main game is in the python, pretty self-explanatory.  It is under the file name game.py.
 The java is (naturally) way more complicated. 
 The pieces talk to each other like this: ShopScreen --> Shop --> ShopInventory --> Upgrade.
 In java, there is shop, which has the stuff for the main shop, and shopgames, where we could the shop games for a tiny bit more money if we have time
