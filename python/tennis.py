@@ -261,7 +261,7 @@ score1 = 0
 score2 = 0
 
 # Music Set Up
-pygame.mixer.music.load("OLDSAFETY_CSCollaborativeProject/python/assets/strategy_twice.mp3")
+pygame.mixer.music.load("python/assets/strategy_twice.mp3")
 pygame.mixer.music.play()
 pygame.mixer.music.set_volume(0.1)
 
