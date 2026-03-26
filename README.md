@@ -1,8 +1,6 @@
 # CSCollaborativeProject
-We have the two different parts, the shop and the main game. 
-The main game is in the python, pretty self-explanatory.  It is under the file name game.py.
-The java is (naturally) way more complicated. 
-The pieces talk to each other like this: ShopScreen --> Shop --> ShopInventory --> Upgrade.
+This project is comprised of two different parts: the shop and the main game.
+The main game is a python file names tennis. The shop was built in java with an intricate architecture. Since java is a class-based language, it is conventional and professional to have all unique tasks or structures in their own files. These can easily come togeather to talk to each other as so: ShopScreen --> Shop --> ShopInventory --> Upgrade.
 In java, there is shop, which has the stuff for the main shop, and shopgames, where we could the shop games for a tiny bit more money if we have time
 The instructions for each of the folders (assets, logic, model, ui) in shop, are in the first files of each one, and each file has its own directions at the top.
 But since assets can't have any written files in it, the instructions are in here:
