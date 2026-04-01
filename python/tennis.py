@@ -262,8 +262,8 @@ score2 = 0
 
 # Music Set Up
 pygame.mixer.music.load("python/assets/strategy_twice.mp3")
-pygame.mixer.music.play()
-pygame.mixer.music.set_volume(0.8)
+pygame.mixer.music.play(-1)
+pygame.mixer.music.set_volume(1.0)
 
 # Pre-Main Game Screens
 show_home_screen() # Call wait screen function before main game untill quitted
