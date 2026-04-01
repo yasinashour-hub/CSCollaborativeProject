@@ -6,6 +6,7 @@ import java.awt.*;
 import shop.logic.ShopInventory;
 import shop.logic.ShopManager;
 import shop.model.Upgrade;
+
 // IMPORTANT: This file takes care of what shop.java would do, but if we see fit,
 // the appropriate code will be transfered to that file.
 
@@ -42,6 +43,12 @@ public class ShopScreen {
         waterBottle = inventory.getWaterBottle();
 
         shopManager = new ShopManager(20);
+        var boughtracket = 0;
+        var boughtshoes = 0;
+        var boughtpball = 0;
+        var boughtscball = 0;
+        var boughtwb = 0;
+
 
         // 1. Create the main application window (JFrame)
         JFrame frame = new JFrame("Java Shop GUI");
@@ -50,7 +57,7 @@ public class ShopScreen {
         frame.setLayout(new BorderLayout()); // Use BorderLayout manager
 
         // 2. Create components (buttons, labels, panels)
-        JPanel shopPanel = new BackgroundPanel("/home/yasinashour/CS_Game/CSCollaborativeProject-1/java/shop/assets/shop_bg.png");
+        JPanel shopPanel = new BackgroundPanel("../assets/shop_bg.png");
         shopPanel.setLayout(new GridBagLayout()); // Layout for buttons
 
         JButton buyShoesButton = 
@@ -117,6 +124,7 @@ public class ShopScreen {
             public void actionPerformed(ActionEvent e) {
                 String result = shopManager.buy(pointBall);
                 statusLabel.setText(result);
+
             }
         });
 
