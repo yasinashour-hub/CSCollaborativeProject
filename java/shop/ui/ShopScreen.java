@@ -43,11 +43,13 @@ public class ShopScreen {
         waterBottle = inventory.getWaterBottle();
 
         shopManager = new ShopManager(20);
-        var boughtracket = 0;
-        var boughtshoes = 0;
-        var boughtpball = 0;
-        var boughtscball = 0;
-        var boughtwb = 0;
+        // int boughtracket = 0;
+        // int boughtshoes = 0;
+        // int boughtpball = 0;
+        // int boughtspball = 0;
+        // int boughtscball = 0;
+        // int boughtwb = 0;
+
 
 
         // 1. Create the main application window (JFrame)
