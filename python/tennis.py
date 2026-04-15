@@ -4,15 +4,7 @@ import random
 import time
 import subprocess
 
-"""
-Note: This file's version name is tennis3com++
-
-ToDo:
-- Add "Next" Buttons to all screen and remove click for next screen
-- Enhance button appearence
-- Compact/Optimize/Tidy button class and all associated functions, variables, etc.
-- Finish Shop/Integration
-"""
+# FOR USERS: Make sure reop name is "CSCollaborativeProject" EXACTLY
 
 # Initialize Pygame
 pygame.init()
@@ -29,14 +21,14 @@ FPS = 60
 
 # Setup Screen
 screen = pygame.display.set_mode((WIDTH, HEIGHT)) # Create display with defined dimentions and assign to variable
-pygame.display.set_caption("PvP Tennis") # Set window caption
+pygame.display.set_caption("Tennis Battle Royale") # Set window caption
 clock = pygame.time.Clock() # Program clock
 
 title_font = pygame.font.SysFont("Arial", 60, bold=True)
 subtitle_font = pygame.font.SysFont("Arial", 24)
 instruction_font = pygame.font.SysFont("Arial", 20)
 font_bold = pygame.font.SysFont("Arial", 30, bold=True)
-font = pygame.font.SysFont("Arial", 30) # Universal font
+font = pygame.font.SysFont("Arial", 26, bold=True) # Universal font
 
 # Classes
 class Player(pygame.sprite.Sprite): # Player Class
@@ -114,37 +106,20 @@ class Ball(pygame.sprite.Sprite): # Ball Class
             self.speed_x = 5 if self.speed_x > 0 else -5
 
 class Button:
-    def __init__(self, x, y, width, height, text, default_color, hover_color, action=None):
+    def __init__(self, x, y, width, height, text, default_color, hover_color):
         self.rect = pygame.Rect(x, y, width, height)
         self.text = text
         self.default_color = default_color
         self.hover_color = hover_color
         self.color = default_color
-        self.action = action
         self.font = pygame.font.Font(None, 30)
         self.text_surface = self.font.render(text, True, (255, 255, 255)) # Black text
         self.text_rect = self.text_surface.get_rect(center=self.rect.center)
 
     def draw(self, screen):
         #Draws the button on the screen and updates its color based on mouse position.
-        pygame.draw.rect(screen, self.color, self.rect)
+        pygame.draw.rect(screen, self.color, self.rect, 0, 10)
         screen.blit(self.text_surface, self.text_rect)
-
-    def check_hover(self, mouse_pos):
-        #Changes button color on hover.
-        if self.rect.collidepoint(mouse_pos):
-            self.color = self.hover_color
-        else:
-            self.color = self.default_color
-
-    def handle_event(self, event):
-        # Handles mouse click events.
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            if self.rect.collidepoint(event.pos):
-                if self.action:
-                    self.action()
-                return True
-        return False
 
 # Screen Functions
 def show_home_screen(): # Home screen function
@@ -154,7 +129,7 @@ def show_home_screen(): # Home screen function
 
         # Rendered text variables
         title = title_font.render("TENNIS BATTLE ROYALE", True, WHITE)
-        start = font.render("Press any key to Play", True, WHITE)
+        start = font.render("Click The Buttons To Play", True, WHITE)
         instruction1 = instruction_font.render(
             "This is a 2D, Top-View, PvP, Pong-Inspired Tennis Sim", True, WHITE)
         instruction2 = instruction_font.render(
@@ -167,15 +142,25 @@ def show_home_screen(): # Home screen function
         screen.blit(instruction1, (WIDTH // 2 - instruction1.get_width() // 2, HEIGHT // 1.6))
         screen.blit(instruction2, (WIDTH // 2 - instruction2.get_width() // 2, HEIGHT // 1.45))
         
+        shop_button.draw(screen)
+
+        mouse_position = pygame.mouse.get_pos()
+        if mouse_position[0] in range(shop_button.rect.left, shop_button.rect.right) and mouse_position[1] in range(shop_button.rect.top, shop_button.rect.bottom):
+            shop_button.color = shop_button.hover_color
+        else:
+            shop_button.color = shop_button.default_color
+
+
         pygame.display.flip() # Update pygame
         
         for event in pygame.event.get(): # For any event that pygame picks up
             if event.type == pygame.QUIT: # If the event is to quit the program, quit
                 pygame.quit()
                 sys.exit()
-            # If the event is any key or mouse press
-            if event.type == pygame.KEYDOWN or event.type == pygame.MOUSEBUTTONDOWN:
-                waiting = False # Exit this loop to start the game
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_position = pygame.mouse.get_pos()
+                if mouse_position[0] in range(shop_button.rect.left, shop_button.rect.right) and mouse_position[1] in range(shop_button.rect.top, shop_button.rect.bottom):
+                    waiting = False
 
 def show_shop_screen(): # Home screen function
     shopping = True # Waiting state
@@ -191,6 +176,14 @@ def show_shop_screen(): # Home screen function
         screen.blit(title, (WIDTH // 2 - title.get_width() // 2, 30))
         screen.blit(subtitle, (WIDTH // 2 - subtitle.get_width() // 2, title_rect.bottom + 30))
         
+        start_button.draw(screen)
+
+        mouse_position = pygame.mouse.get_pos()
+        if mouse_position[0] in range(start_button.rect.left, start_button.rect.right) and mouse_position[1] in range(start_button.rect.top, start_button.rect.bottom):
+            start_button.color = start_button.hover_color
+        else:
+            start_button.color = start_button.default_color
+
         pygame.display.flip() # Update pygame
         
         for event in pygame.event.get(): # For any event that pygame picks up
@@ -198,8 +191,10 @@ def show_shop_screen(): # Home screen function
                 pygame.quit()
                 sys.exit()
             # If the event is any key or mouse press
-            if event.type == pygame.KEYDOWN or event.type == pygame.MOUSEBUTTONDOWN:
-                shopping = False # Exit this loop to start the game
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_position = pygame.mouse.get_pos()
+                if mouse_position[0] in range(start_button.rect.left, start_button.rect.right) and mouse_position[1] in range(start_button.rect.top, start_button.rect.bottom):
+                    shopping = False
 
 def show_finish_screen(): # Home screen function
     finishing = True # Waiting state
@@ -217,17 +212,22 @@ def show_finish_screen(): # Home screen function
         
         ttt_button.draw(screen)
 
+        mouse_position = pygame.mouse.get_pos()
+        if mouse_position[0] in range(ttt_button.rect.left, ttt_button.rect.right) and mouse_position[1] in range(ttt_button.rect.top, ttt_button.rect.bottom):
+            ttt_button.color = ttt_button.hover_color
+        else:
+            ttt_button.color = ttt_button.default_color
+
         pygame.display.flip() # Update pygame
         
         for event in pygame.event.get(): # For any event that pygame picks up
             if event.type == pygame.QUIT: # If the event is to quit the program, quit
                 pygame.quit()
                 sys.exit()
-            # Pass events to the button handler
-            ttt_button.handle_event(event)
-
-def ttt(): # Tic-Tac_toe minigame function
-    subprocess.run([sys.executable, 'CSCollaborativeProject/python/mini_games/ttt.py'])
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_position = pygame.mouse.get_pos()
+                if mouse_position[0] in range(ttt_button.rect.left, ttt_button.rect.right) and mouse_position[1] in range(ttt_button.rect.top, ttt_button.rect.bottom):
+                    subprocess.run([sys.executable, 'CSCollaborativeProject/python/mini_games/ttt.py'])
 
 # Object Initialization
 player1 = Player(100, HEIGHT // 2, 'left')
@@ -235,36 +235,77 @@ player2 = Player(WIDTH - 100, HEIGHT // 2, 'right')
 ball = Ball()
 all_sprites = pygame.sprite.Group(player1, player2, ball)
 
-finish_button = Button(
-    x=905,
+# Button Initialization
+shop_button = Button(
+    x=857,
     y=3,
-    width=100,
-    height=50,
+    width=140,
+    height=40,
+    text="ENTER SHOP",
+    default_color=(80, 180, 80),
+    hover_color=(100, 200, 100)
+)
+
+start_button = Button(
+    x=912,
+    y=3,
+    width=85,
+    height=40,
+    text="START",
+    default_color=(80, 180, 80),
+    hover_color=(100, 200, 100)
+)
+
+finish_button = Button(
+    x=912,
+    y=457,
+    width=85,
+    height=40,
     text="FINISH",
-    default_color=COURT_COLOR,
-    hover_color=WHITE,
-    action=show_finish_screen
+    default_color=(80, 180, 80),
+    hover_color=(100, 200, 100)
 )
 
 ttt_button = Button(
     x=150,
-    y=125,
-    width=200,
-    height=100,
+    y=150,
+    width=140,
+    height=40,
     text="Tic-Tac-Toe",
-    default_color=COURT_COLOR,
-    hover_color=WHITE,
-    action=ttt
+    default_color=(80, 180, 80),
+    hover_color=(100, 200, 100)
 )
+
+def get_current_score(score1, score2):
+    # Standard labels
+    labels = ["Love", "15", "30", "40"]
+    
+    # Check for winner
+    if score1 >= 4 and score1 - score2 >= 2:
+        return "Player 1 Wins", "Player 2 Loses"
+    if score2 >= 4 and score2 - score1 >= 2:
+        return "Player 1 Loses", "Player 2 Wins"
+    
+    # Handle Deuce and Advantage
+    if score1 >= 3 and score2 >= 3:
+        if score1 == score2:
+            return "Deuce", "Deuce"
+        elif score1 > score2:
+            return "Advantage Player 1", "Deuce"
+        else:
+            return "Deuce", "Advantage Player 2"
+            
+    # Standard score reporting
+    return f"{labels[score1]}", f"{labels[score2]}"
 
 score1 = 0
 score2 = 0
 
+
 # Music Set Up
-music = ["python/assets/strategy_twice.mp3" , "python/assets/the_girls.mp3"]
-pygame.mixer.music.load(random.choice(music))
-pygame.mixer.music.play(-1)
-pygame.mixer.music.set_volume(1.0)
+pygame.mixer.music.load("CSCollaborativeProject/python/assets/strategy_twice.mp3")
+pygame.mixer.music.play()
+pygame.mixer.music.set_volume(0.1)
 
 # Pre-Main Game Screens
 show_home_screen() # Call wait screen function before main game untill quitted
@@ -279,12 +320,10 @@ while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            # Pass events to the button handler
-            finish_button.handle_event(event)
-
-        # 1.1 Hover Effect Check
-        mouse_pos = pygame.mouse.get_pos()
-        finish_button.check_hover(mouse_pos)
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_position = pygame.mouse.get_pos()
+                if mouse_position[0] in range(finish_button.rect.left, finish_button.rect.right) and mouse_position[1] in range(finish_button.rect.top, finish_button.rect.bottom):
+                    shopping = False
 
         # 2. Contant Updates
         keys = pygame.key.get_pressed() # Get any key presses
@@ -321,10 +360,12 @@ while running:
 
         # UI
         wait_text = font_bold.render("Game Start In ~3 Seconds", True, WHITE) # Text for score 1
-        s1_text = font.render(str(score1), True, WHITE) # Text for score 1
-        s2_text = font.render(str(score2), True, WHITE) # Text for score 1
-        screen.blit(s1_text, (WIDTH // 4, 20)) # Blit text1 on left
-        screen.blit(s2_text, (3 * WIDTH // 4, 20)) # Blit text2 on right
+        
+        s1_string, s2_string = get_current_score(score1, score2)
+        s1_text = font.render(str(s1_string), True, WHITE) # Text for score 1
+        s2_text = font.render(str(s2_string), True, WHITE) # Text for score 1
+        screen.blit(s1_text, (s1_text.get_rect(midright=((WIDTH // 2)*7 // 13 - 10, 30)))) # Blit text1 on left
+        screen.blit(s2_text, (s2_text.get_rect(midleft=(WIDTH - (WIDTH // 2)*7 // 13 + 10, 30)))) # Blit text2 on right
         screen.blit(wait_text, (WIDTH // 2 - wait_text.get_width() // 2 - 10, HEIGHT // 2 - wait_text.get_height() // 2 - 50)) # Blit text2 on right
 
         pygame.display.flip() # Update pygame
@@ -337,8 +378,17 @@ while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            # Pass events to the button handler
-            finish_button.handle_event(event)
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_position = pygame.mouse.get_pos()
+                if mouse_position[0] in range(finish_button.rect.left, finish_button.rect.right) and mouse_position[1] in range(finish_button.rect.top, finish_button.rect.bottom):
+                    shopping = False
+
+        # 1.1 Hover Effect Check
+        mouse_position = pygame.mouse.get_pos()
+        if mouse_position[0] in range(finish_button.rect.left, finish_button.rect.right) and mouse_position[1] in range(finish_button.rect.top, finish_button.rect.bottom):
+            finish_button.color = finish_button.hover_color
+        else:
+            finish_button.color = finish_button.default_color
 
         # 2. Contant Updates
         keys = pygame.key.get_pressed() # Get any key presses
@@ -359,6 +409,9 @@ while running:
         elif ball.rect.right >= WIDTH:
             score1 += 1
             ball.reset_ball()
+        
+        if score1 >= 11 or score2 >= 11:
+            show_finish_screen()
 
         # 5. Draw
         screen.fill(COURT_COLOR) # Color the screen to court color
@@ -374,10 +427,11 @@ while running:
         finish_button.draw(screen)
 
         # UI
-        s1_text = font.render(str(score1), True, WHITE) # Text for score 1
-        s2_text = font.render(str(score2), True, WHITE) # Text for score 1
-        screen.blit(s1_text, (WIDTH // 4, 20)) # Blit text1 on left
-        screen.blit(s2_text, (3 * WIDTH // 4, 20)) # Blit text2 on right
+        s1_string, s2_string = get_current_score(score1, score2)
+        s1_text = font.render(str(s1_string), True, WHITE) # Text for score 1
+        s2_text = font.render(str(s2_string), True, WHITE) # Text for score 1
+        screen.blit(s1_text, (s1_text.get_rect(midright=((WIDTH // 2)*7 // 13 - 10, 30)))) # Blit text1 on left
+        screen.blit(s2_text, (s2_text.get_rect(midleft=(WIDTH - (WIDTH // 2)*7 // 13 + 10, 30)))) # Blit text2 on right
 
         pygame.display.flip() # Update pygame
         clock.tick(FPS) # Constrain game's frame rate to fixed value for consistancy
