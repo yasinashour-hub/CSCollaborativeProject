@@ -153,7 +153,7 @@ def show_home_screen(): # Home screen function
         screen.fill(COURT_COLOR) # Set background
 
         # Rendered text variables
-        title = title_font.render("CHILL PHYSICS TENNIS", True, WHITE)
+        title = title_font.render("TENNIS BATTLE ROYALE", True, WHITE)
         start = font.render("Press any key to Play", True, WHITE)
         instruction1 = instruction_font.render(
             "This is a 2D, Top-View, PvP, Pong-Inspired Tennis Sim", True, WHITE)
