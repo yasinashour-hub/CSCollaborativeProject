@@ -4,6 +4,14 @@ import random
 import time
 import subprocess
 
+'''
+TO DO:
+- Integration
+- Angular Hitting
+- Doubles
+- More Bots, Mini-Games, Etc.
+'''
+
 # Initialize Pygame
 pygame.init()
 
@@ -36,9 +44,11 @@ font = pygame.font.SysFont("Arial", 26, bold=True) # Universal font
 class Player(pygame.sprite.Sprite): # Player Class
     def __init__(self, x, y, side, bot_difficulty): # Object initialization function taking in object, x+y, and side
         super().__init__() # Activate parent class's contents
-        self.image = pygame.Surface((20, 80)) # Create player image
-        self.image.fill(PLAYER_COLOR) # Add color to image
+        self.original_image = pygame.Surface((20, 80), pygame.SRCALPHA) # Create player image
+        self.original_image.fill(PLAYER_COLOR) # Add color to image
+        self.image = self.original_image
         self.rect = self.image.get_rect() # Record object's frame
+        self.angle = 0
         self.rect.center = (x, y) # Set object's rect's center to given coordinates
         self.OGcenter = (x, y)
         self.side = side # 'left' or 'right'
@@ -77,12 +87,24 @@ class Player(pygame.sprite.Sprite): # Player Class
             if keys[pygame.K_s] and self.rect.bottom < HEIGHT: self.rect.y += self.speed
             if keys[pygame.K_d] and self.rect.right < WIDTH // 2 - 10: self.rect.x += self.speed
             if keys[pygame.K_a] and self.rect.left > 0: self.rect.x -= self.speed
+
+            if keys[pygame.K_q]: self.angle += 2
+            if keys[pygame.K_e]: self.angle -= 2
+            old_center = self.rect.center
+            self.image = pygame.transform.rotate(self.original_image, self.angle)
+            self.new_rect = self.image.get_rect(center=old_center)
         
         else: # Otherwise, manual player is on right
             if keys[pygame.K_UP] and self.rect.top > 0: self.rect.y -= self.speed
             if keys[pygame.K_DOWN] and self.rect.bottom < HEIGHT: self.rect.y += self.speed
             if keys[pygame.K_LEFT] and self.rect.left > WIDTH // 2 + 10: self.rect.x -= self.speed
             if keys[pygame.K_RIGHT] and self.rect.right < WIDTH: self.rect.x += self.speed
+
+            if keys[pygame.K_PERIOD]: self.angle += 2
+            if keys[pygame.K_SLASH]: self.angle -= 2
+            old_center = self.rect.center
+            self.image = pygame.transform.rotate(self.original_image, self.angle)
+            self.new_rect = self.image.get_rect(center=old_center)
         
         # Calculate velocity for this frame
         # (Difference of start vs end position in one frame)
@@ -121,7 +143,11 @@ class Ball(pygame.sprite.Sprite): # Ball Class
         self.speed_x += player.vel_x * 0.6
         
         # 3. Add vertical "spin" based on player's Y-movement + hit position
-        paddle_influence = (self.rect.centery - player.rect.centery) * 0.1
+        if player.side == 'left':
+            angle_influence = player.angle * -0.2
+        else:
+            angle_influence = player.angle * 0.2
+        paddle_influence = ((self.rect.centery - player.rect.centery) * 0.1) + (angle_influence)
         self.speed_y = (player.vel_y * 0.4) + paddle_influence
 
         # 4. Speed Lower Limit: Ensure ball never stops or moves too slow
@@ -460,13 +486,16 @@ while playing:
 
             # UI
             wait_text = font_bold.render("Game Start In ~3 Seconds", True, WHITE)
+            angle_instructions = instruction_font.render("Paddle Angle: For WASD use q & e | For Arrow use . & /", True, WHITE)
+            screen.blit(wait_text, (WIDTH // 2 - wait_text.get_width() // 2 - 10, HEIGHT // 2 - wait_text.get_height() // 2 - 50)) 
+            if game_mode == "START PvP":
+                screen.blit(angle_instructions, (WIDTH // 2 - angle_instructions.get_width() // 2, HEIGHT // 2 - 60)) 
             
             s1_string, s2_string = get_current_score(score1, score2)
             s1_text = font.render(str(s1_string), True, WHITE) # Text for score 1
             s2_text = font.render(str(s2_string), True, WHITE) # Text for score 1
             screen.blit(s1_text, (s1_text.get_rect(midright=((WIDTH // 2)*7 // 13 - 10, 30)))) 
             screen.blit(s2_text, (s2_text.get_rect(midleft=(WIDTH - (WIDTH // 2)*7 // 13 + 10, 30)))) 
-            screen.blit(wait_text, (WIDTH // 2 - wait_text.get_width() // 2 - 10, HEIGHT // 2 - wait_text.get_height() // 2 - 50)) 
 
             pygame.display.flip() # Update pygame
             clock.tick(FPS) 
