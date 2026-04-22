@@ -414,9 +414,10 @@ score2 = 0
 
 # Music Set Up (Wrapped in a try block in case the audio file path is missing on a local machine)
 try:
-    pygame.mixer.music.load("OLDSAFETY_CSCollaborativeProject/python/assets/strategy_twice.mp3")
+    songs = ["OLDSAFETY_CSCollaborativeProject/python/assets/the_girls.mp3", "OLDSAFETY_CSCollaborativeProject/python/assets/strategy_twice.mp3"]
+    pygame.mixer.music.load(random.choice(songs))
     pygame.mixer.music.play()
-    pygame.mixer.music.set_volume(0.1)
+    pygame.mixer.music.set_volume(1.0)
 except FileNotFoundError:
     pass
 
