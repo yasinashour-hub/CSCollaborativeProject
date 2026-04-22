@@ -7,7 +7,6 @@ import subprocess
 '''
 TO DO:
 - Integration
-- Angular Hitting
 - Doubles
 - More Bots, Mini-Games, Etc.
 '''
@@ -88,8 +87,8 @@ class Player(pygame.sprite.Sprite): # Player Class
             if keys[pygame.K_d] and self.rect.right < WIDTH // 2 - 10: self.rect.x += self.speed
             if keys[pygame.K_a] and self.rect.left > 0: self.rect.x -= self.speed
 
-            if keys[pygame.K_q]: self.angle += 2
-            if keys[pygame.K_e]: self.angle -= 2
+            if keys[pygame.K_q]: self.angle += 0.5
+            if keys[pygame.K_e]: self.angle -= 0.5
             old_center = self.rect.center
             self.image = pygame.transform.rotate(self.original_image, self.angle)
             self.new_rect = self.image.get_rect(center=old_center)
@@ -100,8 +99,8 @@ class Player(pygame.sprite.Sprite): # Player Class
             if keys[pygame.K_LEFT] and self.rect.left > WIDTH // 2 + 10: self.rect.x -= self.speed
             if keys[pygame.K_RIGHT] and self.rect.right < WIDTH: self.rect.x += self.speed
 
-            if keys[pygame.K_PERIOD]: self.angle += 2
-            if keys[pygame.K_SLASH]: self.angle -= 2
+            if keys[pygame.K_PERIOD]: self.angle += 0.5
+            if keys[pygame.K_SLASH]: self.angle -= 0.5
             old_center = self.rect.center
             self.image = pygame.transform.rotate(self.original_image, self.angle)
             self.new_rect = self.image.get_rect(center=old_center)
@@ -144,9 +143,9 @@ class Ball(pygame.sprite.Sprite): # Ball Class
         
         # 3. Add vertical "spin" based on player's Y-movement + hit position
         if player.side == 'left':
-            angle_influence = player.angle * -0.2
+            angle_influence = player.angle * -0.05
         else:
-            angle_influence = player.angle * 0.2
+            angle_influence = player.angle * 0.05
         paddle_influence = ((self.rect.centery - player.rect.centery) * 0.1) + (angle_influence)
         self.speed_y = (player.vel_y * 0.4) + paddle_influence
 
@@ -329,9 +328,9 @@ def show_finish_screen(): # Finish screen function
                 sys.exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if ttt_button.rect.collidepoint(mouse_position):
-                    subprocess.run([sys.executable, 'OLDSAFETY_CSCollaborativeProject/python/mini_games/ttt.py'])
+                    subprocess.run([sys.executable, 'mini_games/ttt.py'])
                 elif whack_button.rect.collidepoint(mouse_position):
-                    subprocess.run([sys.executable, 'OLDSAFETY_CSCollaborativeProject/python/mini_games/whack.py'])
+                    subprocess.run([sys.executable, 'mini_games/whack.py'])
 
 # Object Initialization
 player1 = Player(100, HEIGHT // 2, 'left', 0)
@@ -414,7 +413,7 @@ score2 = 0
 
 # Music Set Up (Wrapped in a try block in case the audio file path is missing on a local machine)
 try:
-    songs = ["OLDSAFETY_CSCollaborativeProject/python/assets/the_girls.mp3", "OLDSAFETY_CSCollaborativeProject/python/assets/strategy_twice.mp3"]
+    songs = ["assets/the_girls.mp3", "assets/strategy_twice.mp3"]
     pygame.mixer.music.load(random.choice(songs))
     pygame.mixer.music.play()
     pygame.mixer.music.set_volume(1.0)
@@ -437,7 +436,7 @@ elif game_mode == "START HARD BOT":
     player1.bot_difficulty = 0
 elif game_mode == "START BOSS BOT":
     player1.is_bot = True
-    player1.bot_difficulty = -93
+    player1.bot_difficulty = -143
 else:
     player1.is_bot = False
 
